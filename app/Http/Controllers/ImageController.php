@@ -18,12 +18,12 @@ class ImageController extends Controller
 
             $image = $request->file('image');
             $image_name = $request->title . '-' . time() . '.' . $image->extension();
-            $path = $image->storeAs('images', $image_name, 'public');
+            $image_path = $image->storeAs('images', $image_name, 'public');
 
             $image = Image::create([
                 'title' => $request->title,
                 'description' => $request->description,
-                'file_path' => $path,
+                'file_path' => $image_path,
                 'file_type' => $image->extension(),
                 'file_size' => $image->getSize(),
             ]);
@@ -35,8 +35,8 @@ class ImageController extends Controller
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'An error occurred while storing the image ...',
-                'message' => $e->getMessage()
+                'success' => false,
+                'message' => 'An error occurred while storing the image: ' . $e->getMessage()
             ], 500);
         }
     }
