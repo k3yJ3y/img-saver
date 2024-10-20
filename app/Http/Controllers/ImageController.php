@@ -17,7 +17,7 @@ class ImageController extends Controller
             ]);
 
             $image = $request->file('image');
-            $image_name = $request->title . '-' . time() . '.' . $image->extension();
+            $image_name = str_replace(' ', '_', $request->title) . '-' . time() . '.' . $image->extension();
             $image_path = $image->storeAs('images', $image_name, 'public');
 
             $image = Image::create([
@@ -29,9 +29,12 @@ class ImageController extends Controller
             ]);
 
             return response()->json([
+                'success' => true,
+                'message' => 'Image uploaded successfully...',
                 'file_type' => $image->file_type,
                 'file_size' => $image->file_size,
-                'file_path' => asset('storage/' . $image->file_path),
+                'file_path' => $image->file_path,
+                'file_url' => asset('storage/' . $image->file_path),
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
