@@ -31,10 +31,12 @@ class ImageController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Image uploaded successfully...',
-                'file_type' => $image->file_type,
-                'file_size' => $image->file_size,
-                'file_path' => $image->file_path,
-                'file_url' => asset('storage/' . $image->file_path),
+                'data' => [
+                    'file_type' => $image->file_type,
+                    'file_size' => $image->file_size,
+                    'file_path' => $image->file_path,
+                    'file_url' => asset('storage/' . $image->file_path),
+                ]
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
