@@ -73,7 +73,7 @@ echo $token; // Copy this token for use in API requests
 
 ### 2. Upload an Image
 
-You can use tools like cURL, Postman, or any other similar tool to upload an image.
+You can use tools like cURL, Postman, or any other similar tool to upload an image (accepted formats: jpeg, png, jpg, gif, svg, webp; maximum size: 2048KB).
 
 #### Using cURL
 
